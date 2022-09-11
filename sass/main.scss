@@ -1,20 +1,175 @@
 @import "./mixins";
 @import "./variables";
+// @import "./grid";
 
 html {
   font-size: 62.5%;
+  @include responsive(tab-land) {
+    font-size: 50%;
+  }
+  @include responsive(phone) {
+    // font-size: 60%;
+  }
 }
 body {
   font-family: $font-family;
+  background-color: $color-neutral-very-dark-blue;
 }
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5% 12%;
+  margin: 5% auto;
 }
-footer {
-  .attribution {
-    text-align: center;
-    font-size: 1.1rem;
-    & a {
-      color: hsl(228, 45%, 44%);
+.dashboard {
+  &__user {
+    background-color: $color-primary-blue;
+    padding: 2.4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3.2rem;
+    border-radius: 1.2rem;
+    @include responsive(phone) {
+      // align-items: center;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
+    &-image {
+      width: 7.2rem;
+      border-radius: 50%;
+      border: 0.3rem solid $color-neutral-pale-blue;
+    }
+    &-name {
+      color: $color-neutral-white;
+      // font-size: 4.8rem;
+      font-size: 3.6rem;
+      font-weight: $font-weight-regular;
+      margin-bottom: 3.6rem;
+      width: 85%;
+      @include responsive(phone) {
+        width: 100%;
+        font-size: 2.4rem;
+        margin-bottom: 0;
+      }
+      & span {
+        font-size: 1.5rem;
+        font-weight: $font-weight-extralight;
+        display: block;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  &__timeline {
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: $font-size-body;
+    gap: 1.8rem;
+    margin-top: 3.2rem;
+    @include responsive(phone) {
+      flex-direction: row;
+      margin-top: 0;
+      gap: 1rem;
+      justify-content: space-evenly;
+    }
+    &-item {
+      & a {
+        font-weight: $font-weight-regular;
+        &:visited,
+        &:link {
+          color: $color-neutral-desaturated-blue;
+        }
+        &:active,
+        &:hover {
+          color: $color-neutral-white;
+        }
+      }
+    }
+  }
+  &__item {
+    background-color: $color-neutral-dark-blue;
+    margin-top: 5rem;
+    height: 80%;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    border-radius: 1.2rem;
+    padding: 2.4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: $color-neutral-white;
+    gap: 2.4rem;
+    &:hover {
+      background-color: $color-neutral-item-hover;
+      cursor: pointer;
+    }
+    @include responsive(tab-port) {
+      // height: 75%;
+      margin-top: 18%;
+    }
+    @include responsive(phone) {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      margin-top: 14%;
+      height: 80%;
+      gap: 0;
+    }
+    &-header {
+      // gap: 3.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include responsive(phone) {
+        grid-column: 1 / -1;
+      }
+    }
+    &-title {
+      font-weight: $font-weight-regular;
+      font-size: 1.8rem;
+    }
+    &-button {
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    &-current {
+      font-weight: $font-weight-extralight;
+      color: $color-neutral-white;
+      font-size: 4.8rem;
+      @include responsive(phone) {
+        grid-column: 1 / 2;
+      }
+    }
+    &-previous {
+      color: $color-neutral-desaturated-blue;
+      font-size: $font-size-body;
+      @include responsive(phone) {
+        grid-column: 2 / 3;
+      }
+    }
+  }
+}
+.grid {
+  @include grid;
+}
+.attribution {
+  text-align: center;
+  font-size: 1.2rem;
+  // margin-inline: auto;
+  color: $color-neutral-white;
+  & a {
+    color: $color-primary-light-red-work;
   }
 }

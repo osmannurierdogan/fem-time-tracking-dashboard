@@ -15,195 +15,304 @@
     <link rel="stylesheet" href="./dist/main.css" />
 
     <title>Frontend Mentor | Time tracking dashboard</title>
+    <script src="https://unpkg.com/vue@3"></script>
   </head>
   <body>
     <div class="container">
-      <div class="grid dashboard">
+      <div class="grid dashboard" id="dashboard">
         <div class="grid__item grid__item--1">
           <div class="dashboard__user">
             <img
               class="dashboard__user-image"
-              src="./images/image-jeremy.png"
-              alt="Jeremy Robinson Image"
+              :src="user.image"
+              :alt="user.name + ' Image'"
             />
             <h1 class="dashboard__user-name">
-              <span>Report for</span> Jeremy Robson
+              <span>Report for</span> {{ user.name }}
             </h1>
           </div>
           <ul class="dashboard__timeline">
-            <li class="dashboard__timeline-item"><a href="#">Daily</a></li>
-            <li class="dashboard__timeline-item"><a href="#">Weekly</a></li>
-            <li class="dashboard__timeline-item"><a href="#">Monthly</a></li>
+            <li class="dashboard__timeline-item" @click="timeframe = 'daily'">
+              <a href="#">Daily</a>
+            </li>
+            <li class="dashboard__timeline-item" @click="timeframe = 'weekly'">
+              <a href="#">Weekly</a>
+            </li>
+            <li class="dashboard__timeline-item" @click="timeframe = 'monthly'">
+              <a href="#">Monthly</a>
+            </li>
           </ul>
         </div>
+
         <div class="grid__item grid__item--2">
-          <div class="dashboard__item dashboard__item--work">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[0].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[0].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[0].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[0].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[0].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[0].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[0].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[0].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
         <div class="grid__item grid__item--3">
-          <div class="dashboard__item dashboard__item--play">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[1].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[1].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[1].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[1].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[1].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[1].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[1].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[1].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
         <div class="grid__item grid__item--4">
-          <div class="dashboard__item dashboard__item--study">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[2].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[2].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[2].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[2].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[2].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[2].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[2].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[2].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
         <div class="grid__item grid__item--5">
-          <div class="dashboard__item dashboard__item--exercise">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[3].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[3].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[3].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[3].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[3].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[3].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[3].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[3].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
         <div class="grid__item grid__item--6">
-          <div class="dashboard__item dashboard__item--social">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[4].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[4].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[4].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[4].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[4].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[4].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[4].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[4].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
         <div class="grid__item grid__item--7">
-          <div class="dashboard__item dashboard__item--self-care">
+          <div
+            class="dashboard__item"
+            :class="`dashboard__item--${dashboards[5].title.toLowerCase()}`"
+          >
             <div class="dashboard__item-header">
-              <h3 class="dashboard__item-title">Work</h3>
+              <h3 class="dashboard__item-title">{{dashboards[5].title}}</h3>
               <button class="dashboard__item-button">
                 <img src="./images/icon-ellipsis.svg" alt="Ellipsis Icon" />
               </button>
             </div>
-            <h1 class="dashboard__item-current">
-              32hrs
+            <h1
+              class="dashboard__item-current"
+              v-if="this.timeframe == 'daily'"
+            >
+              {{ dashboards[5].timeframes.daily.current }}hrs
             </h1>
-            <p class="dashboard__item-previous">Last Week - 36hrs</p>
+            <h1
+              class="dashboard__item-current"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              {{ dashboards[5].timeframes.weekly.current }}hrs
+            </h1>
+            <h1 class="dashboard__item-current" v-else>
+              {{ dashboards[5].timeframes.monthly.current }}hrs
+            </h1>
+            <p
+              class="dashboard__item-previous"
+              v-if="this.timeframe == 'daily'"
+            >
+              Last Day - {{ dashboards[5].timeframes.daily.previous }}hrs
+            </p>
+            <p
+              class="dashboard__item-previous"
+              v-else-if="this.timeframe == 'weekly'"
+            >
+              Last Week - {{ dashboards[5].timeframes.weekly.previous }}hrs
+            </p>
+            <p class="dashboard__item-previous" v-else>
+              Last Month - {{ dashboards[5].timeframes.monthly.previous }}hrs
+            </p>
           </div>
         </div>
       </div>
     </div>
-    <!-- daily -->
-    Previous - 7hrs
-    <!-- daily -->
-    32hrs
-    <!-- weekly -->
-    Previous - 36hrs
-    <!-- weekly -->
-    103hrs
-    <!-- monthly -->
-    Previous - 128hrs
-    <!-- monthly -->
-
-    Play 1hr
-    <!-- daily -->
-    Previous - 2hrs
-    <!-- daily -->
-    10hrs
-    <!-- weekly -->
-    Previous - 8hrs
-    <!-- weekly -->
-    23hrs
-    <!-- monthly -->
-    Previous - 29hrs
-    <!-- monthly -->
-
-    Study 0hrs
-    <!-- daily -->
-    Previous - 1hr
-    <!-- daily -->
-    4hrs
-    <!-- weekly -->
-    Previous - 7hrs
-    <!-- weekly -->
-    13hrs
-    <!-- monthly -->
-    Previous - 19hrs
-    <!-- monthly -->
-
-    Exercise 1hr
-    <!-- daily -->
-    Previous - 1hr
-    <!-- daily -->
-    4hrs
-    <!-- weekly -->
-    Previous - 5hrs
-    <!-- weekly -->
-    11hrs
-    <!-- monthly -->
-    Previous - 18hrs
-    <!-- monthly -->
-
-    Social 1hr
-    <!-- daily -->
-    Previous - 3hrs
-    <!-- daily -->
-    5hrs
-    <!-- weekly -->
-    Previous - 10hrs
-    <!-- weekly -->
-    21hrs
-    <!-- monthly -->
-    Previous - 23hrs
-    <!-- monthly -->
-
-    Self Care 0hrs
-    <!-- daily -->
-    Previous - 1hr
-    <!-- daily -->
-    2hrs
-    <!-- weekly -->
-    Previous - 2hrs
-    <!-- weekly -->
-    7hrs
-    <!-- monthly -->
-    Previous - 11hrs
-    <!-- monthly -->
-
     <div class="attribution">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
         >Frontend Mentor</a
-      >. Coded by <a href="#">Your Name Here</a>.
+      >. Coded by
+      <a href="https://frontendmentor.io/profile/osmannurierdogan"
+        >Osman Nuri ERDOGAN</a
+      >.
     </div>
+    <script src="./app.js" defer></script>
   </body>
 </html>
