@@ -1,0 +1,20 @@
+@import "./mixins";
+@import "./variables";
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: $font-family;
+}
+.container {
+}
+footer {
+  .attribution {
+    text-align: center;
+    font-size: 1.1rem;
+    & a {
+      color: hsl(228, 45%, 44%);
+    }
+  }
+}
